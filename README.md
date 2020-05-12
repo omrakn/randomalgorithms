@@ -1,3 +1,3 @@
-# GIS and Geomatics Related Algorithms/Analysis
+# GIS and Geomatics Algorithms/Analysis
 
-Random Algorithms &amp; Tools &amp; Methods
+GIS and Geomatics related random Algorithms &amp; Tools &amp; Methods
