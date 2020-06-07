@@ -30,7 +30,7 @@ def getInput():
         point IDs of points that will be checked
     checkpoints : list
         point coordinates that will be checked
-        
+
     """
 
     global file
@@ -65,13 +65,14 @@ Please write the project name without extension: ")
                 points = [(i, j) for i, j in zip(x, y)]
                 checkpoints = [points[pointIDs.index(pID)] for pID in checkIDs]
                 polygon = [points[pointIDs.index(pID)] for pID in polyIDs]
-                return pointIDs, points, polyIDs, polygon, checkIDs, checkpoints
+                return (pointIDs, points, polyIDs,
+                        polygon, checkIDs, checkpoints)
 
             except ValueError:
                 print("Some points are not found in given project.")
             except:
                 print("File is not properly designed.")
-            
+
         else:
             print("File does not exist in the directory")
 
@@ -95,7 +96,7 @@ def pointInPoly(checkpoints, poly):
     borderpoints : list
         Boolean list with the same order of checkpoints that shows whether the
         point on border or not (True for border, False for not)
-        
+
     """
 
     polypoints = len(poly)
@@ -113,8 +114,8 @@ def pointInPoly(checkpoints, poly):
                 (point[0] - poly[i][0]) / (poly[j][0] - poly[i][0])):
                 check = True
             elif ((poly[i][0] > point[0]) != (poly[j][0] > point[0])) and \
-                (point[1] == poly[i][1] + (poly[j][1] - poly[i][1]) *
-                (point[0] - poly[i][0]) / (poly[j][0] - poly[i][0])):
+                 (point[1] == poly[i][1] + (poly[j][1] - poly[i][1]) *
+                 (point[0] - poly[i][0]) / (poly[j][0] - poly[i][0])):
                 border = True
             checklist.append(check)
             borderlist.append(border)
@@ -153,7 +154,7 @@ def getIDs(checkedpoints, borderpoints, checkIDs, checkpoints):
         point IDs of points that are on border of the polygon
     bordercoords : list
         coordinates of points that are on border of the polygon
-        
+
     """
 
     inIDs = []
@@ -169,7 +170,8 @@ def getIDs(checkedpoints, borderpoints, checkIDs, checkpoints):
     return inIDs, incoords, borderIDs, bordercoords
 
 
-def PlotPointinPoly(pointIDs, points, polygon, inCoords, borderCoords, checkpoints):
+def PlotPointinPoly(pointIDs, points, polygon,
+                    inCoords, borderCoords, checkpoints):
     """
     Plot the points, polygon and checked points in corresponding colors
 
@@ -185,7 +187,7 @@ def PlotPointinPoly(pointIDs, points, polygon, inCoords, borderCoords, checkpoin
     Returns
     -------
     None.
-    
+
     """
 
     fig, ax = plt.subplots(figsize=(12, 8))
@@ -235,7 +237,7 @@ def writeOutput(checkIDs, polyIDs, checkedpoints, borderIDs):
     Returns
     -------
     None.
-    
+
     """
 
     inOut = ["inside" if boo else "outside" for boo in checkedpoints]
@@ -260,13 +262,15 @@ def writeOutput(checkIDs, polyIDs, checkedpoints, borderIDs):
 
 
 def main():
-    pointIDs, points, polyIDs, polygon, checkIDs, checkpoints = getInput()
+    (pointIDs, points, polyIDs, polygon, checkIDs, checkpoints) = getInput()
     inPoints, border_points = pointInPoly(checkpoints, polygon)
     inIDs, incoords, borderIDs, border_coords = getIDs(
         inPoints, border_points, checkIDs, checkpoints
         )
-    PlotPointinPoly(pointIDs, points, polygon, incoords, border_coords, checkpoints)
+    PlotPointinPoly(pointIDs, points, polygon,
+                    incoords, border_coords, checkpoints)
     writeOutput(checkIDs, polyIDs, inPoints, borderIDs)
 
 
-main()
+if __name__ == "__main__":
+    main()

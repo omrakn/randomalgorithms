@@ -27,6 +27,7 @@ def getInput():
         nodes and their connections
     weights : dict
         distances between connected points
+
     """
 
     global file
@@ -95,6 +96,7 @@ def origdestInput(nodes):
         user inputted origin point
     destination : str
         user inputted destination point
+
     """
 
     while True:
@@ -140,6 +142,7 @@ points and path (for an undirected graph)
         nodes that are accessible from the origin point and their weights
     path : dict (childnode: parentnode)
         child & parent relationship of accessible nodes
+
     """
 
     # Initialize dijkstra algorithm
@@ -198,6 +201,7 @@ def shortestPath(path, origin, destination):
     -------
     shortest_path : list
         list contains the visited nodes between origin and destination points
+
     """
 
     # Check the destination is accessible or not
@@ -235,6 +239,7 @@ destination
     Returns
     -------
     None.
+
     """
 
     fig, ax = plt.subplots(figsize=(12, 8))
@@ -277,6 +282,7 @@ def writeOutput(shortestPath, visited):
     Returns
     -------
     None.
+
     """
 
     outputfile = open(file + ".out", "w")
@@ -304,4 +310,5 @@ def main():
         writeOutput(shortest_path, visited_points)
 
 
-main()
+if __name__ == "__main__":
+    main()

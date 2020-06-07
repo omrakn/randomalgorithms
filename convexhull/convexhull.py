@@ -315,4 +315,5 @@ def main():
     writeOutput(pointIDs, points, convex_IDs)
 
 
-main()
+if __name__ == "__main__":
+    main()
