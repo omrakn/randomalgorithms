@@ -1,5 +1,5 @@
 """
-Dijkstra
+Dijkstra Algorithm
 
 @ Author: Res. Assist. Ömer Akın
 @ Instituiton: Istanbul Technical University Geomatics Engineering Departmant
@@ -7,8 +7,8 @@ Dijkstra
 
 """
 
-import os, sys
-import math
+
+import os, sys, math
 import matplotlib.pyplot as plt
 
 
@@ -178,7 +178,6 @@ points and path (for an undirected graph)
             if edge not in visited or weight < visited[edge]:
                 visited[edge] = weight
                 path[edge] = nearest_node
-
     return visited, path
 
 
@@ -216,7 +215,6 @@ def shortestPath(path, origin, destination):
 
     shortest_path.reverse()
     shortest_path.append(destination)
-
     return shortest_path
 
 
@@ -262,7 +260,6 @@ destination
     plt.xlabel("Y")
     plt.ylabel("X")
     plt.show()
-
     return
 
 
@@ -292,7 +289,6 @@ def writeOutput(shortestPath, visited):
 
     print("Output report is generated as {}.out in the directory".format(file))
     outputfile.close()
-
     return
 
 

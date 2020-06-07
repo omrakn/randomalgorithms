@@ -7,6 +7,7 @@ Point in Polygon Ray Casting Method
 
 """
 
+
 import os, sys
 import matplotlib.pyplot as plt
 
@@ -29,6 +30,7 @@ def getInput():
         point IDs of points that will be checked
     checkpoints : list
         point coordinates that will be checked
+        
     """
 
     global file
@@ -70,7 +72,6 @@ Please write the project name without extension: ")
             except:
                 print("File is not properly designed.")
             
-
         else:
             print("File does not exist in the directory")
 
@@ -94,6 +95,7 @@ def pointInPoly(checkpoints, poly):
     borderpoints : list
         Boolean list with the same order of checkpoints that shows whether the
         point on border or not (True for border, False for not)
+        
     """
 
     polypoints = len(poly)
@@ -121,7 +123,6 @@ def pointInPoly(checkpoints, poly):
             j = i
         checkedpoints.append(countcheck(checklist))
         borderpoints.append(bordercheck(borderlist))
-
     return checkedpoints, borderpoints
 
 
@@ -152,6 +153,7 @@ def getIDs(checkedpoints, borderpoints, checkIDs, checkpoints):
         point IDs of points that are on border of the polygon
     bordercoords : list
         coordinates of points that are on border of the polygon
+        
     """
 
     inIDs = []
@@ -164,11 +166,10 @@ def getIDs(checkedpoints, borderpoints, checkIDs, checkpoints):
         if borderpoints[i]:
             borderIDs.append(checkIDs[i])
     bordercoords = [checkpoints[checkIDs.index(ID)] for ID in borderIDs]
-
     return inIDs, incoords, borderIDs, bordercoords
 
 
-def pltPlot(pointIDs, points, polygon, inCoords, borderCoords, checkpoints):
+def PlotPointinPoly(pointIDs, points, polygon, inCoords, borderCoords, checkpoints):
     """
     Plot the points, polygon and checked points in corresponding colors
 
@@ -184,6 +185,7 @@ def pltPlot(pointIDs, points, polygon, inCoords, borderCoords, checkpoints):
     Returns
     -------
     None.
+    
     """
 
     fig, ax = plt.subplots(figsize=(12, 8))
@@ -211,7 +213,6 @@ def pltPlot(pointIDs, points, polygon, inCoords, borderCoords, checkpoints):
     plt.ylabel("X")
     plt.legend(loc="upper left")
     plt.show()
-
     return
 
 
@@ -234,6 +235,7 @@ def writeOutput(checkIDs, polyIDs, checkedpoints, borderIDs):
     Returns
     -------
     None.
+    
     """
 
     inOut = ["inside" if boo else "outside" for boo in checkedpoints]
@@ -254,7 +256,6 @@ def writeOutput(checkIDs, polyIDs, checkedpoints, borderIDs):
                 )
     print("Output report is generated as {}.out in the directory".format(file))
     outputfile.close()
-
     return
 
 
@@ -264,7 +265,8 @@ def main():
     inIDs, incoords, borderIDs, border_coords = getIDs(
         inPoints, border_points, checkIDs, checkpoints
         )
-    pltPlot(pointIDs, points, polygon, incoords, border_coords, checkpoints)
+    PlotPointinPoly(pointIDs, points, polygon, incoords, border_coords, checkpoints)
     writeOutput(checkIDs, polyIDs, inPoints, borderIDs)
+
 
 main()
