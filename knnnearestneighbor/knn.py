@@ -1,5 +1,5 @@
 """
-KNN Nearest Neigbor Algorithm
+KNN Nearest Neigbor Algorithm - Derived from edX-Python for Research Course
 
 @ Author: Res. Assist. Ömer Akın
 @ Instituiton: Istanbul Technical University Geomatics Engineering Departmant
@@ -20,15 +20,15 @@ def distance(p1, p2):
 
     Parameters
     ----------
-    p1 : TYPE
-        DESCRIPTION.
-    p2 : TYPE
-        DESCRIPTION.
+    p1 : numpy.ndarray
+        first point
+    p2 : numpy.ndarray
+        second point
 
     Returns
     -------
-    dist : TYPE
-        DESCRIPTION.
+    dist : numpy.float64
+        distance between two points
 
     """
 
@@ -39,16 +39,6 @@ def distance(p1, p2):
 def majorityVote(votes):
     """
     Find the mod of data
-
-    Parameters
-    ----------
-    votes : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    winner : TYPE
-        DESCRIPTION.
 
     """
 
@@ -69,25 +59,9 @@ def majorityVote(votes):
     return winner
 
 
-p1 = np.array([1, 1])
-p2 = np.array([4, 4])
-votes = [1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 3, 3]
-vote_counts = majorityVote(votes)
-
-
 def majorityVoteFast(votes):
     """
     Faster version of majorityVote function with scipy library
-
-    Parameters
-    ----------
-    votes : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    mode : TYPE
-        DESCRIPTION.
 
     """
 
@@ -108,11 +82,6 @@ def findNearestNeighbors(p, points, k=5):
     k : int, optional
         number of neighbors. The default value is 5.
 
-    Returns
-    -------
-    TYPE
-        DESCRIPTION.
-
     """
 
     distances = np.zeros(points.shape[0])
@@ -130,9 +99,13 @@ def knnPredict(p, points, outcomes, k=5):
 
 
 def generateSyntheticData(n=50):
-    """Create two sets of points from bivariate normal distributions."""
-    points = np.concatenate((ss.norm(0, 1).rvs((n, 2)), 
-                             ss.norm(1, 1).rvs((n,2))), axis=0)
+    """
+    Create two sets of points from bivariate normal distributions
+
+    """
+
+    points = np.concatenate((ss.norm(0, 1).rvs((n, 2)),
+                             ss.norm(1, 1).rvs((n, 2))), axis=0)
     outcomes = np.concatenate((np.repeat(0, n), np.repeat(1, n)))
 
     plt.figure()
@@ -143,11 +116,12 @@ def generateSyntheticData(n=50):
     return (points, outcomes)
 
 
-#----------------ÖNEMLİ NOT---------------#
-### Classifier olarak girilen datanın classını vermesinden ise classifier grid yapıp
-### her bölgeye ait classification'ı görebiliriz.meshgrid, enumerate
 def makePredictionGrid(predictors, outcomes, limits, h, k):
-    """Classify each point on the prediction grid"""
+    """
+    Classify each point on the prediction grid
+
+    """
+
     (x_min, x_max, y_min, y_max) = limits
     xs = np.arange(x_min, x_max, h)
     ys = np.arange(y_min, y_max, h)
@@ -163,7 +137,11 @@ def makePredictionGrid(predictors, outcomes, limits, h, k):
 
 
 def plotPredictionGrid(xx, yy, predictors, outcomes, predictionGrid, filename):
-    """ Plot KNN predictions for every point on the grid."""
+    """
+    Plot KNN predictions for every point on the grid
+
+    """
+
     from matplotlib.colors import ListedColormap
     background_colormap = ListedColormap(
         ["hotpink", "lightskyblue", "yellowgreen"]
@@ -180,6 +158,7 @@ def plotPredictionGrid(xx, yy, predictors, outcomes, predictionGrid, filename):
                 c=outcomes,
                 cmap=observation_colormap,
                 s=50)
+    plt.title("Classification Result")
     plt.xlabel('Variable 1')
     plt.ylabel('Variable 2')
     plt.xticks(())
@@ -190,21 +169,21 @@ def plotPredictionGrid(xx, yy, predictors, outcomes, predictionGrid, filename):
 
 
 def main():
-    # Sample Data Plot
     from sklearn import datasets
     iris = datasets.load_iris()
     predictors = iris["data"][:, 0:2]
     outcomes = iris["target"]
 
     plt.plot(
-        predictors[outcomes == 0][:,0], predictors[outcomes == 0][:, 1],"ro"
+        predictors[outcomes == 0][:, 0], predictors[outcomes == 0][:, 1], "ro"
         )
     plt.plot(
-        predictors[outcomes == 1][:,0], predictors[outcomes == 1][:, 1],"bo"
+        predictors[outcomes == 1][:, 0], predictors[outcomes == 1][:, 1], "bo"
         )
     plt.plot(
-        predictors[outcomes == 2][:,0], predictors[outcomes == 2][:, 1],"go"
+        predictors[outcomes == 2][:, 0], predictors[outcomes == 2][:, 1], "go"
         )
+    plt.title("Data that will be classified")
     plt.savefig("iris.png")
 
     k = 5
@@ -219,4 +198,6 @@ def main():
         [knnPredict(p, predictors, outcomes, 5) for p in predictors]
         )
 
-main()
+
+if __name__ == "__main__":
+    main()
