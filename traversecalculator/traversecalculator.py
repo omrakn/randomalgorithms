@@ -2,7 +2,7 @@
 Open, Closed and Linked Traverse Calculator
 
 @ Author: Res. Assist. Ömer Akın
-@ Instituiton: Istanbul Technical University Geomatics Engineering Departmant
+@ Institution: Istanbul Technical University Geomatics Engineering Departmant
 @ e-mail: akinom@itu.edu.tr
 
 """
